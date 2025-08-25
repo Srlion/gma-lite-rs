@@ -6,15 +6,6 @@ Minimal Rust library to read and write Garry's Mod Addon (.gma) archives.
 - Types: [`crate::Entry`](src/lib.rs), [`crate::GmaError`](src/lib.rs)
 - Format constants: [`crate::HEADER`](src/lib.rs), [`crate::VERSION`](src/lib.rs)
 
-## Installation
-
-Add to your Cargo.toml:
-
-```toml
-[dependencies]
-gma-lite = "0.1"
-```
-
 ## Usage
 
 ### Read a GMA
