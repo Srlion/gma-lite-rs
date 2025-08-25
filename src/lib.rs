@@ -35,28 +35,11 @@ mod builder;
 pub use builder::Builder;
 
 /// One entry (file) contained in a GMA.
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Default)]
 pub struct Entry {
-    name: String,
-    content: Vec<u8>,
-    size: u64,
-}
-
-impl Entry {
-    /// File name within the archive.
-    pub fn name(&self) -> &str {
-        &self.name
-    }
-
-    /// Raw file bytes.
-    pub fn content(&self) -> &[u8] {
-        &self.content
-    }
-
-    /// Declared size from the metadata (always equals `content().len()` after a successful read).
-    pub fn size(&self) -> u64 {
-        self.size
-    }
+    pub name: String,
+    pub content: Vec<u8>,
+    pub size: u64,
 }
 
 /// Errors that can occur while reading a GMA.
