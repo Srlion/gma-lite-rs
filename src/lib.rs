@@ -20,7 +20,7 @@
 //!
 
 use std::fmt;
-use std::io::{self, BufRead, BufReader, Read};
+use std::io::{self};
 
 /// Magic header for GMA files.
 pub const HEADER: &[u8; 4] = b"GMAD";
