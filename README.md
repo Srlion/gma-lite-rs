@@ -3,7 +3,7 @@
 Minimal Rust library to read and write Garry's Mod Addon (.gma) archives.
 
 - Small API: [`crate::read`](src/reader.rs) and [`crate::Builder`](src/builder.rs)
-- Types: [`crate::Entry`](src/lib.rs), [`crate::GmaError`](src/lib.rs)
+- Types: [`crate::GMAFile`](src/lib.rs), [`crate::GmaError`](src/lib.rs)
 - Format constants: [`crate::HEADER`](src/lib.rs), [`crate::VERSION`](src/lib.rs)
 
 ## Usage
@@ -15,7 +15,7 @@ use gma_lite::read;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let bytes = std::fs::read("addon.gma")?;
-    let entries = read(&bytes[..])?; // Vec<Entry>
+    let entries = read(&bytes[..])?; // Vec<GMAFile>
 
     for e in &entries {
         println!("{} ({} bytes)", e.name(), e.size());
@@ -44,9 +44,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## API
 
-- Reader: [`crate::read`](src/reader.rs) -> `Result<Vec<crate::Entry>, crate::GmaError>`
+- Reader: [`crate::read`](src/reader.rs) -> `Result<Vec<crate::GMAFile>, crate::GmaError>`
 - Writer: [`crate::Builder`](src/builder.rs) with `write_to<W: std::io::Write>(&self, w) -> Result<(), crate::GmaError>`
-- Types: [`crate::Entry`](src/lib.rs), [`crate::GmaError`](src/lib.rs)
+- Types: [`crate::GMAFile`](src/lib.rs), [`crate::GmaError`](src/lib.rs)
 
 See [src/lib.rs](src/lib.rs) for format details and error types.
 

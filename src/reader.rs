@@ -1,9 +1,9 @@
 use std::io::{self, BufRead, BufReader, Read};
 
-use crate::{Entry, GmaError, HEADER, VERSION};
+use crate::{GMAFile, GmaError, HEADER, VERSION};
 
 /// Read a GMA from any `Read`. Returns the list of entries with names and contents.
-pub fn read<R: Read>(reader: R) -> Result<Vec<Entry>, GmaError> {
+pub fn read<R: Read>(reader: R) -> Result<Vec<GMAFile>, GmaError> {
     let mut r = BufReader::new(reader);
 
     // Header
@@ -62,7 +62,7 @@ pub fn read<R: Read>(reader: R) -> Result<Vec<Entry>, GmaError> {
     for (name, size) in entries_meta {
         let mut content = vec![0u8; size as usize];
         r.read_exact(&mut content)?;
-        entries.push(Entry {
+        entries.push(GMAFile {
             name,
             size,
             content,

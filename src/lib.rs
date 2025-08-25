@@ -36,7 +36,7 @@ pub use builder::Builder;
 
 /// One entry (file) contained in a GMA.
 #[derive(Clone, Debug, PartialEq, Eq, Default)]
-pub struct Entry {
+pub struct GMAFile {
     pub name: String,
     pub content: Vec<u8>,
     pub size: u64,

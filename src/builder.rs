@@ -1,7 +1,7 @@
 use std::io::{self, BufWriter, Write};
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use crate::{Entry, GmaError, HEADER, VERSION};
+use crate::{GMAFile, GmaError, HEADER, VERSION};
 
 /// Builder for writing `.gma` archives.
 ///
@@ -12,7 +12,7 @@ pub struct Builder {
     steam_id64: i64,
     author: String,
     description: String,
-    entries: Vec<Entry>,
+    entries: Vec<GMAFile>,
 }
 
 impl Builder {
@@ -37,7 +37,7 @@ impl Builder {
     pub fn file_from_bytes(&mut self, name: impl Into<String>, bytes: Vec<u8>) {
         let name = name.into();
         let size = bytes.len() as u64;
-        self.entries.push(Entry {
+        self.entries.push(GMAFile {
             name,
             content: bytes,
             size,
