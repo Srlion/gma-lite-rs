@@ -8,6 +8,6 @@ description = "Lite GMA (Garry's Mod Addon) archive reader/writer"
 keywords = ["gma", "gmod", "garrys-mod", "addon", "archive"]
 repository = "https://github.com/Srlion/gma-lite"
 readme = "README.md"
-categories = ["file-formats", "compression", "games", "gmod"]
+categories = ["compression", "games", "encoding", "filesystem", "parsing"]
 
 [dependencies]
