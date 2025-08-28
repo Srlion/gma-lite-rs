@@ -37,7 +37,7 @@ pub fn read<R: Read>(reader: R) -> Result<Vec<GMAFile>, GmaError> {
     discard_exact(&mut r, 4)?;
 
     // Metadata loop
-    let mut entries_meta: Vec<(String, u64)> = Vec::with_capacity(10);
+    let mut entries_meta: Vec<(String, i64)> = Vec::with_capacity(10);
     loop {
         let idx = read_u32(&mut r)?;
         if idx == 0 {
@@ -45,11 +45,10 @@ pub fn read<R: Read>(reader: R) -> Result<Vec<GMAFile>, GmaError> {
         }
 
         let name = read_c_string(&mut r)?;
-        let size_i64 = read_i64(&mut r)?;
-        if size_i64 < 0 {
-            return Err(GmaError::SizeOutOfRange(size_i64));
+        let size = read_i64(&mut r)?;
+        if size < 0 {
+            return Err(GmaError::SizeOutOfRange(size));
         }
-        let size = size_i64 as u64;
 
         // CRC32 (u32) — discard
         discard_exact(&mut r, 4)?;
@@ -60,6 +59,10 @@ pub fn read<R: Read>(reader: R) -> Result<Vec<GMAFile>, GmaError> {
     // Contents — read in the same order
     let mut entries = Vec::with_capacity(entries_meta.len());
     for (name, size) in entries_meta {
+        if size > usize::MAX as i64 {
+            return Err(GmaError::SizeOutOfRange(size));
+        }
+
         let mut content = vec![0u8; size as usize];
         r.read_exact(&mut content)?;
         entries.push(GMAFile {

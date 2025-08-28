@@ -39,7 +39,7 @@ pub use builder::Builder;
 pub struct GMAFile {
     pub name: String,
     pub content: Vec<u8>,
-    pub size: u64,
+    pub size: i64,
 }
 
 /// Errors that can occur while reading a GMA.

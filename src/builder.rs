@@ -36,7 +36,7 @@ impl Builder {
 
     pub fn file_from_bytes(&mut self, name: impl Into<String>, bytes: Vec<u8>) {
         let name = name.into();
-        let size = bytes.len() as u64;
+        let size = bytes.len() as i64;
         self.entries.push(GMAFile {
             name,
             content: bytes,

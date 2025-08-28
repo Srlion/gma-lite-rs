@@ -1,6 +1,6 @@
 [package]
 name = "gma-lite"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2024"
 authors = ["Srlion <srlion32@gmail.com>"]
 license = "MIT"
