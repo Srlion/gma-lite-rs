@@ -6,7 +6,7 @@ authors = ["Srlion <srlion32@gmail.com>"]
 license = "MIT"
 description = "Lite GMA (Garry's Mod Addon) archive reader/writer"
 keywords = ["gma", "gmod", "garrys-mod", "addon", "archive"]
-repository = "https://github.com/Srlion/gma-lite"
+repository = "https://github.com/Srlion/gma-lite-rs"
 readme = "README.md"
 categories = ["compression", "games", "encoding", "filesystem", "parsing"]
 
