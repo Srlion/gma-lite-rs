@@ -16,13 +16,18 @@ pub struct Builder {
 }
 
 impl Builder {
+    #[inline]
     pub fn new(name: impl Into<String>, steam_id64: i64) -> Self {
+        Self::new_with_capacity(name, steam_id64, 0)
+    }
+
+    pub fn new_with_capacity(name: impl Into<String>, steam_id64: i64, capacity: usize) -> Self {
         Self {
             name: name.into(),
             steam_id64,
             author: "unknown".into(),
             description: String::new(),
-            entries: Vec::new(),
+            entries: Vec::with_capacity(capacity),
         }
     }
 
