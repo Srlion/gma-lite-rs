@@ -59,11 +59,9 @@ pub fn read<R: Read>(reader: R) -> Result<Vec<GMAFile>, GmaError> {
     // Contents — read in the same order
     let mut entries = Vec::with_capacity(entries_meta.len());
     for (name, size) in entries_meta {
-        if size > usize::MAX as i64 {
-            return Err(GmaError::SizeOutOfRange(size));
-        }
+        let size_usize = usize::try_from(size).map_err(|_| GmaError::SizeOutOfRange(size))?;
 
-        let mut content = vec![0u8; size as usize];
+        let mut content = vec![0u8; size_usize];
         r.read_exact(&mut content)?;
         entries.push(GMAFile {
             name,
