@@ -1,13 +1,13 @@
 [package]
 name = "gma-lite"
-version = "0.3.3"
+version = "0.3.4"
 edition = "2024"
 authors = ["Srlion <srlion32@gmail.com>"]
 license = "MIT"
 description = "Lite GMA (Garry's Mod Addon) archive reader/writer"
-keywords = ["gma", "gmod", "garrys-mod", "addon", "archive"]
+keywords = ["addon", "archive", "garrys-mod", "gma", "gmod"]
 repository = "https://github.com/Srlion/gma-lite-rs"
 readme = "README.md"
-categories = ["compression", "games", "encoding", "filesystem", "parsing"]
+categories = ["compression", "encoding", "filesystem", "games", "parsing"]
 
 [dependencies]
