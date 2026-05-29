@@ -25,8 +25,17 @@ pub fn read<R: Read>(reader: R) -> Result<Vec<GMAFile>, GmaError> {
     // Timestamp (u64) — discard
     discard_exact(&mut r, 8)?;
 
-    // Required content (u8) — discard
-    discard_exact(&mut r, 1)?;
+    if v > 1 {
+        loop {
+            let s = read_c_string(&mut r)?;
+            if s.is_empty() {
+                break;
+            }
+        }
+    } else {
+        // single 0x00 sentinel byte
+        discard_exact(&mut r, 1)?;
+    }
 
     // Addon name / description / author — discard their values but still parse
     read_c_string(&mut r)?; // name
@@ -60,7 +69,6 @@ pub fn read<R: Read>(reader: R) -> Result<Vec<GMAFile>, GmaError> {
     let mut entries = Vec::with_capacity(entries_meta.len());
     for (name, size) in entries_meta {
         let size_usize = usize::try_from(size).map_err(|_| GmaError::SizeOutOfRange(size))?;
-
         let mut content = vec![0u8; size_usize];
         r.read_exact(&mut content)?;
         entries.push(GMAFile {
@@ -70,11 +78,7 @@ pub fn read<R: Read>(reader: R) -> Result<Vec<GMAFile>, GmaError> {
         });
     }
 
-    // Final trailing u32 zero
-    let trailing = read_u32(&mut r)?;
-    if trailing != 0 {
-        return Err(GmaError::TrailingMarkerMismatch(trailing));
-    }
+    let _ = read_u32(&mut r);
 
     Ok(entries)
 }
